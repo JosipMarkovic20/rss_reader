@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum NewsListInput{
+    case loadData
+    case newsClicked(indexPath: IndexPath)
+}

@@ -22,15 +22,17 @@ class RESTManager{
                     let xml = XML.parse(data)
                     let xmlChannel = xml.rss.channel
                     let xmlItems = xmlChannel.item
-                    var items = [NewsItem]()
+                    var items = [News]()
                     for item in xmlItems {
                         let imageLink = item["media:content"].attributes["url"]
-                        items.append(NewsItem(title: item.title.text,
-                                              link: item.link.text,
-                                              imageLink: imageLink))
+                        items.append(News(title: item.title.text,
+                                          imageLink: imageLink,
+                                          link: item.link.text,
+                                          items: []))
                     }
                     let news = News(title: xmlChannel.image.title.text,
                                     imageLink: xmlChannel.image["url"].text,
+                                    link: nil,
                                     items: items)
                     observer.onNext(news)
                     observer.onCompleted()

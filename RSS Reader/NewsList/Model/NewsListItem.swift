@@ -6,3 +6,11 @@
 //
 
 import Foundation
+public class NewsListItem: NewsListBaseItem{
+    let item: News
+
+    init(identity: String, item: News) {
+        self.item = item
+        super.init(identity: identity)
+    }
+}

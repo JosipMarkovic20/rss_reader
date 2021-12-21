@@ -31,6 +31,7 @@ class HomeCoordinator: NSObject, Coordinator {
     func createHomeViewController() -> HomeViewController {
         let viewModel = HomeViewModelImpl(dependencies: HomeViewModelImpl.Dependencies(newsRepository: NewsRepositoryImpl(restManager: RESTManager())))
         let viewController = HomeViewController(viewModel: viewModel)
+        viewController.delegate = self
         return viewController
     }
 }
@@ -43,4 +44,18 @@ extension HomeCoordinator: CoordinatorDelegate, ParentCoordinatorDelegate{
     func childHasFinished(coordinator: Coordinator) {
         removeChildCoordinator(coordinator: coordinator)
     }
+}
+
+extension HomeCoordinator: HomeNavigationDelegate {
+    func navigateToNewsList(news: News) {
+        let coordinator = NewsListCoordinator(navController: navigationController,
+                                              news: news)
+        addChildCoordinator(coordinator: coordinator)
+        coordinator.start()
+    }
+}
+
+
+protocol HomeNavigationDelegate: AnyObject {
+    func navigateToNewsList(news: News)
 }

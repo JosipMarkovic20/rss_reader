@@ -1,5 +1,5 @@
 //
-//  HomeCell.swift
+//  NewsListCell.swift
 //  RSS Reader
 //
 //  Created by Josip Marković on 21.12.2021..
@@ -7,13 +7,12 @@
 
 import Foundation
 import UIKit
-import Kingfisher
 
-class HomeCell: UITableViewCell{
+class NewsListCell: UITableViewCell{
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
@@ -42,19 +41,19 @@ class HomeCell: UITableViewCell{
     
     func setupConstraints(){
         newsImage.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(60).priority(.required)
+            make.top.leading.bottom.equalToSuperview().inset(16)
+            make.height.width.equalTo(80).priority(.required)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(newsImage)
-            make.top.equalTo(newsImage.snp.bottom).offset(16)
-            make.bottom.equalToSuperview().inset(16)
+            make.leading.equalTo(newsImage.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.centerY.equalTo(newsImage)
         }
     }
     
     func configure(item: News){
-        nameLabel.text = item.title
+        self.nameLabel.text = item.title
         guard let url = URL(string: item.imageLink ?? "") else { return }
         newsImage.kf.setImage(with: url, placeholder: R.image.placeholder())
     }

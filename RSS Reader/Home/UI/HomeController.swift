@@ -16,6 +16,7 @@ public final class HomeViewController: UIViewController, UITableViewDelegate, Lo
     var dataSource: RxTableViewSectionedAnimatedDataSource<HomeSectionItem>!
     private let viewModel: HomeViewModel!
     public let disposeBag = DisposeBag()
+    weak var delegate: HomeNavigationDelegate?
     
     public let tableView: UITableView = {
         let tv = UITableView()
@@ -45,12 +46,12 @@ public final class HomeViewController: UIViewController, UITableViewDelegate, Lo
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
@@ -102,7 +103,7 @@ extension HomeViewController {
                 guard let safeEvent = output.event else { return }
                 switch safeEvent{
                 case .openNewsList(let news):
-                    print(news)
+                    delegate?.navigateToNewsList(news: news)
                 case .error(let message):
                     showAlertWith(title: R.string.localizable.error(), message: message)
                 case .reloadData:
