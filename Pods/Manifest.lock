@@ -1,14 +1,10 @@
 PODS:
   - Alamofire (5.5.0)
   - Differentiator (5.0.0)
+  - Kingfisher (7.1.2)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
-  - RxAlamofire (6.1.1):
-    - RxAlamofire/Core (= 6.1.1)
-  - RxAlamofire/Core (6.1.1):
-    - Alamofire (~> 5.4)
-    - RxSwift (~> 6.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -20,41 +16,53 @@ PODS:
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
   - SnapKit (5.0.1)
+  - SwiftyXMLParser (5.5.0)
 
 DEPENDENCIES:
   - Alamofire
+  - Kingfisher
   - R.swift
-  - RxAlamofire
   - RxCocoa
   - RxDataSources
   - RxSwift
   - SnapKit
+  - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Differentiator
+    - Kingfisher
     - R.swift
     - R.swift.Library
-    - RxAlamofire
     - RxCocoa
     - RxDataSources
     - RxRelay
     - RxSwift
     - SnapKit
 
+EXTERNAL SOURCES:
+  SwiftyXMLParser:
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
+CHECKOUT OPTIONS:
+  SwiftyXMLParser:
+    :commit: d7a1d23f04c86c1cd2e8f19247dd15d74e0ea8be
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
-  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftyXMLParser: 027d9e6fb54a38d95dccec025bcea9693f699c47
 
-PODFILE CHECKSUM: 3cd8f212538cc42bbb1542f3717cb7854e12bd38
+PODFILE CHECKSUM: 475ca739850ee68feed0cc88b81ac02da4126a5c
 
 COCOAPODS: 1.11.2

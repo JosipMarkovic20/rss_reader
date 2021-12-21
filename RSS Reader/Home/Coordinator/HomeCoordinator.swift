@@ -29,7 +29,7 @@ class HomeCoordinator: NSObject, Coordinator {
     }
 
     func createHomeViewController() -> HomeViewController {
-        let viewModel = HomeViewModelImpl(dependencies: HomeViewModelImpl.Dependencies())
+        let viewModel = HomeViewModelImpl(dependencies: HomeViewModelImpl.Dependencies(newsRepository: NewsRepositoryImpl(restManager: RESTManager())))
         let viewController = HomeViewController(viewModel: viewModel)
         return viewController
     }

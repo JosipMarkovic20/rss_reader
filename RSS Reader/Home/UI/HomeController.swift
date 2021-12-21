@@ -11,10 +11,21 @@ import RxCocoa
 import RxDataSources
 import SnapKit
 
-public final class HomeViewController: UIViewController, UITableViewDelegate {
-    private let viewModel: HomeViewModel!
+public final class HomeViewController: UIViewController, UITableViewDelegate, LoaderProtocol {
     
+    var dataSource: RxTableViewSectionedAnimatedDataSource<HomeSectionItem>!
+    private let viewModel: HomeViewModel!
     public let disposeBag = DisposeBag()
+    
+    public let tableView: UITableView = {
+        let tv = UITableView()
+        return tv
+    }()
+    
+    var spinner: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+        return view
+    }()
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -27,6 +38,92 @@ public final class HomeViewController: UIViewController, UITableViewDelegate {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        bindDataSource()
+        viewModel.input.onNext(.loadData)
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+}
+
+extension HomeViewController {
+    
+    private func setupUI() {
+        view.backgroundColor = .white
+        view.addSubview(tableView)
+        setupConstraints()
+        setupTableView()
+    }
+    
+    func setupTableView(){
+        registerCells()
+    }
+    
+    func setupConstraints(){
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    private func registerCells() {
+        self.tableView.register(HomeCell.self, forCellReuseIdentifier: "HomeCell")
+    }
+    
+    func bindDataSource(){
+        disposeBag.insert(viewModel.bindViewModel())
+        
+        dataSource = RxTableViewSectionedAnimatedDataSource<HomeSectionItem>{ (dataSource, tableView, indexPath, rowItem) -> UITableViewCell in
+            let item = dataSource[indexPath.section].items[indexPath.row]
+            let cell: HomeCell = tableView.dequeueCell(identifier: "HomeCell")
+            if let safeItem = item as? HomeItem{
+                cell.configure(item: safeItem.item)
+            }
+            return cell
+        }
+        self.dataSource.animationConfiguration = .init(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .automatic)
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        viewModel.output
+            .map({ $0.items })
+            .bind(to: tableView.rx.items(dataSource: self.dataSource))
+            .disposed(by: disposeBag)
+        
+        viewModel.output
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {[unowned self] (output) in
+                guard let safeEvent = output.event else { return }
+                switch safeEvent{
+                case .openNewsList(let news):
+                    print(news)
+                case .error(let message):
+                    showAlertWith(title: R.string.localizable.error(), message: message)
+                case .reloadData:
+                    tableView.reloadData()
+                }
+            }).disposed(by: disposeBag)
+        
+        viewModel.loaderPublisher
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {[unowned self] (shouldShowLoader) in
+                if shouldShowLoader{
+                    showLoader()
+                }else{
+                    hideLoader()
+                }
+            }).disposed(by: disposeBag)
+    
+        
+        tableView.rx.itemSelected
+            .map({ HomeInput.newsClicked(indexPath: $0)})
+            .bind(to: viewModel.input)
+            .disposed(by: disposeBag)
+    }
 }

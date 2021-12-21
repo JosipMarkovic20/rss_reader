@@ -7,10 +7,11 @@ target 'RSS Reader' do
 
   # Pods for RSS Reader
   pod 'Alamofire'
-  pod 'RxAlamofire'
   pod 'SnapKit'
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'R.swift'
   pod 'RxDataSources'
+  pod 'SwiftyXMLParser', :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
+  pod 'Kingfisher'
 end
