@@ -41,7 +41,6 @@
 		749E3F7A2770DD7E00349111 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749E3F792770DD7E00349111 /* HomeViewModel.swift */; };
 		749E3F7C2770DD8A00349111 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749E3F7B2770DD8A00349111 /* HomeController.swift */; };
 		749E3F802770E24B00349111 /* RESTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749E3F7F2770E24B00349111 /* RESTManager.swift */; };
-		749E41A52770E94D00349111 /* SerilizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749E41A42770E94D00349111 /* SerilizationManager.swift */; };
 		749E41A82770ED3100349111 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749E41A72770ED3100349111 /* News.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +81,6 @@
 		749E3F792770DD7E00349111 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		749E3F7B2770DD8A00349111 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		749E3F7F2770E24B00349111 /* RESTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTManager.swift; sourceTree = "<group>"; };
-		749E41A42770E94D00349111 /* SerilizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerilizationManager.swift; sourceTree = "<group>"; };
 		749E41A72770ED3100349111 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		92DE2CA2600069C925C3A56A /* Pods_RSS_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSS_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D374E9C752A20925B76514 /* Pods-RSS Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Reader.release.xcconfig"; path = "Target Support Files/Pods-RSS Reader/Pods-RSS Reader.release.xcconfig"; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 		749E41A32770E92A00349111 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				749E41A42770E94D00349111 /* SerilizationManager.swift */,
 				7426AAB52772758F00013737 /* NewsError.swift */,
 			);
 			path = Utils;
@@ -418,13 +415,13 @@
 /* Begin PBXShellScriptBuildPhase section */
 		749E3F562770DA5900349111 /* R-Swift */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$TEMP_DIR/rswift-lastrun",
 			);
 			name = "R-Swift";
 			outputFileListPaths = (
@@ -493,7 +490,6 @@
 				749E3F662770DC4200349111 /* UIView+Extension.swift in Sources */,
 				749E3F632770DBF500349111 /* ParentCoordinatorDelegate.swift in Sources */,
 				749E3F432770D52400349111 /* AppDelegate.swift in Sources */,
-				749E41A52770E94D00349111 /* SerilizationManager.swift in Sources */,
 				7426AAC327727B6400013737 /* HomeCell.swift in Sources */,
 				7426AABC2772783A00013737 /* HomeInput.swift in Sources */,
 				7426AACC27727F1F00013737 /* NewsListBaseItem.swift in Sources */,

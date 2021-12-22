@@ -105,6 +105,31 @@ struct R: Rswift.Validatable {
   }
   #endif
 
+  /// This `R.color` struct is generated, and contains static references to 1 colors.
+  struct color {
+    /// Color `AccentColor`.
+    static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func accentColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.accentColor, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func accentColor(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.accentColor.name)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.image` struct is generated, and contains static references to 1 images.
   struct image {
     /// Image `placeholder`.
@@ -122,12 +147,16 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 1 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 2 localization keys.
     struct localizable {
       /// en translation: Error
       ///
       /// Locales: en
       static let error = Rswift.StringResource(key: "error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: OK
+      ///
+      /// Locales: en
+      static let ok = Rswift.StringResource(key: "ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
 
       /// en translation: Error
       ///
@@ -142,6 +171,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("error", bundle: bundle, comment: "")
+      }
+
+      /// en translation: OK
+      ///
+      /// Locales: en
+      static func ok(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("ok", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "ok"
+        }
+
+        return NSLocalizedString("ok", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

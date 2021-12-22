@@ -11,7 +11,7 @@ import Kingfisher
 
 class HomeCell: UITableViewCell{
     
-    let nameLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.numberOfLines = 0
@@ -35,7 +35,7 @@ class HomeCell: UITableViewCell{
     }
     
     func setupUI(){
-        addSubviews(views: [nameLabel, newsImage])
+        addSubviews(views: [titleLabel, newsImage])
         selectionStyle = .none
         setupConstraints()
     }
@@ -46,7 +46,7 @@ class HomeCell: UITableViewCell{
             make.height.equalTo(60).priority(.required)
         }
         
-        nameLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.leading.trailing.equalTo(newsImage)
             make.top.equalTo(newsImage.snp.bottom).offset(16)
             make.bottom.equalToSuperview().inset(16)
@@ -54,7 +54,7 @@ class HomeCell: UITableViewCell{
     }
     
     func configure(item: News){
-        nameLabel.text = item.title
+        titleLabel.text = item.title
         guard let url = URL(string: item.imageLink ?? "") else { return }
         newsImage.kf.setImage(with: url, placeholder: R.image.placeholder())
     }

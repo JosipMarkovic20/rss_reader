@@ -10,7 +10,6 @@ import RxSwift
 
 class NewsRepositoryImpl: NewsRepository {
     let restManager: RESTManager
-    let yahooUrl = URL(string: "https://news.yahoo.com/rss/")
     let nyTimesUrl = URL(string: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml")
     let nyTimesTechnologyUrl = URL(string: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml")
     let nyTimesSportUrl = URL(string: "https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml")
@@ -20,17 +19,9 @@ class NewsRepositoryImpl: NewsRepository {
     }
     func getNewsFeeds() -> Observable<Result<[News], Error>> {
         var feeds = [News]()
-        let observable = getFeed(from: yahooUrl)
+        let observable = getFeed(from: nyTimesUrl)
         
         return observable.flatMap {[unowned self] result -> Observable<Result<News, Error>> in
-            switch result {
-            case .success(let news):
-                feeds.append(news)
-                return getFeed(from: nyTimesUrl)
-            case .failure(let error):
-                return .just(.failure(error))
-            }
-        }.flatMap {[unowned self] result -> Observable<Result<News, Error>> in
             switch result {
             case .success(let news):
                 feeds.append(news)

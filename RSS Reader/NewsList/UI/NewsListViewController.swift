@@ -16,6 +16,7 @@ public final class NewsListViewController: UIViewController, UITableViewDelegate
     var dataSource: RxTableViewSectionedAnimatedDataSource<NewsListSectionItem>!
     private let viewModel: NewsListViewModel!
     public let disposeBag = DisposeBag()
+    weak var coordinatorDelegate: CoordinatorDelegate?
     
     public let tableView: UITableView = {
         let tv = UITableView()
@@ -36,11 +37,22 @@ public final class NewsListViewController: UIViewController, UITableViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit{
+        print("Deinit: \(self)")
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         bindDataSource()
         viewModel.input.onNext(.loadData)
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParent{
+            coordinatorDelegate?.viewControllerHasFinished()
+        }
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class NewsListCell: UITableViewCell{
     
-    let nameLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 0
@@ -20,7 +20,6 @@ class NewsListCell: UITableViewCell{
     
     let newsImage: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -34,18 +33,18 @@ class NewsListCell: UITableViewCell{
     }
     
     func setupUI(){
-        addSubviews(views: [nameLabel, newsImage])
+        addSubviews(views: [titleLabel, newsImage])
         selectionStyle = .none
         setupConstraints()
     }
     
     func setupConstraints(){
         newsImage.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview().inset(16)
-            make.height.width.equalTo(80).priority(.required)
+            make.top.leading.bottom.equalToSuperview()
+            make.width.height.equalTo(120).priority(.required)
         }
         
-        nameLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(newsImage.snp.trailing).offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.centerY.equalTo(newsImage)
@@ -53,7 +52,7 @@ class NewsListCell: UITableViewCell{
     }
     
     func configure(item: News){
-        self.nameLabel.text = item.title
+        self.titleLabel.text = item.title
         guard let url = URL(string: item.imageLink ?? "") else { return }
         newsImage.kf.setImage(with: url, placeholder: R.image.placeholder())
     }

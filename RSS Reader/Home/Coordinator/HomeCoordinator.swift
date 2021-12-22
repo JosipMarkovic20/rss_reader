@@ -51,6 +51,7 @@ extension HomeCoordinator: HomeNavigationDelegate {
         let coordinator = NewsListCoordinator(navController: navigationController,
                                               news: news)
         addChildCoordinator(coordinator: coordinator)
+        coordinator.parentDelegate = self
         coordinator.start()
     }
 }

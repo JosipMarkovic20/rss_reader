@@ -31,6 +31,7 @@ class NewsListCoordinator: NSObject, Coordinator {
     func createNewsListController(news: News) -> NewsListViewController {
         let viewModel = NewsListViewModelImpl(dependencies: NewsListViewModelImpl.Dependencies(news: news))
         let viewController = NewsListViewController(viewModel: viewModel)
+        viewController.coordinatorDelegate = self
         return viewController
     }
 }
